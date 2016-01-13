@@ -8,85 +8,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Тарифные планы</title>
-   
-    <!-- Resources -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <title>Тарифные планы</title>    
     
 </head>
 <body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link href="./js/nouislider.min.css" rel="stylesheet">
 <script src="./js/nouislider.min.js"></script>
-<script src="./js/wnumb-1.0.2/wNumb.js"></script>
+<script src="./js/wNumb.js"></script>
 
 <div class="wrapper" style="width: 700px; margin-left: auto; margin-right: auto;">
 	<div id="priceCalc" class="noUi-target noUi-ltr noUi-horizontal noUi-connect" >
 	</div>
-	<p style="font-size: 24px;  margin-top: 70px; margin-left: auto; margin-right: auto;">Начальная цена контракта: <input type="text" size="9" id="input-format"> <i class="fa fa-rub"></i></p>
+	<p style="font-size: 24px;  margin-top: 70px; margin-left: auto; margin-right: auto;">При начальной цене контракта: 
+	<input type="text" size="9" id="input-format"> <i class="fa fa-rub"></i></p>
+	<p>Гарантированная экономия <span id="procentEconomy"></span>%, которая составит <span style="font-weight: bold;" id="garanteedEconomy"></span> <i class="fa fa-rub"></i></p>
+	<p>Когда вы сэкономите, ваш тариф составит: <span id="tarifProcent"></span>% от гарантированной экономии или <span id="ourTariff"></span> <i class="fa fa-rub"></i></p>
 	
 
 </div>
-<script>
-
-var moneyFormat = wNumb({
-	decimals: 3,
-	thousand: '.',
-	postfix: '<i class="fa fa-rub"></i> '
-});
-
-var moneyValueFormat = wNumb({
-	decimals: 3,
-	thousand: '.',
-	encoder: function( value ){
-			return Math.round(value);
-		}
-});
-
-var range_all_sliders = {
-	'min': [     100000 ],
-    '60%': [ 30000000, 1000000 ],
-    '85%': [ 100000000, 30000000 ],
-    'max': [ 300000000 ]
-};
-
-
-
-var rangeSlider = document.getElementById('priceCalc');
-
-noUiSlider.create(rangeSlider, {
-	start: [ 5000000 ],
-	range: range_all_sliders,
-	step: 1000,
-	format: moneyValueFormat,
-	pips: {
-		mode: 'range',
-		density: 5,
-		format: moneyFormat
-	}
-});
-/*
-var valueSlider = null;
-        rangeSlider.noUiSlider.on('update', function(){
-            valueSlider = rangeSlider.noUiSlider.get();
-
-            $('input-format').text(moneyFormat.to(Math.round(valueSlider)));
-            
-        });
-
-*/
-
-
-var inputFormat = document.getElementById('input-format');
-
-rangeSlider.noUiSlider.on('update', function( values, handle ) {
-	inputFormat.value = values[handle];
-});
-
-inputFormat.addEventListener('change', function(){
-	rangeSlider.noUiSlider.set(this.value);
-});
-
-
-</script>
+<script src="./js/tariff.js"></script>
 
  </body></html>
